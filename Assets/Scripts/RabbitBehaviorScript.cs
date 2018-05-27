@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RabbitBehaviorScript : MonoBehaviour
 {
@@ -41,12 +40,12 @@ public class RabbitBehaviorScript : MonoBehaviour
 //Намалювати лінію (для розробника)
         Debug.DrawLine (from, to, Color.red);
         
-        if(Input.GetKeyDown(KeyCode.Space) && _isGrounded) {
+        if(Input.GetButtonDown("Jump") && _isGrounded) {
             _jumpActive = true;
         }
         if(_jumpActive) {
 //Якщо кнопку ще тримають
-            if(Input.GetKey(KeyCode.Space)) {
+            if(Input.GetButton("Jump")) {
                 _jumpTime += Time.deltaTime;
                 if (_jumpTime < MaxJumpTime) {
                     Vector2 vel = _bunny.velocity;
