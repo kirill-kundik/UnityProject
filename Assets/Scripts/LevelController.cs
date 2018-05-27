@@ -7,7 +7,8 @@ public class LevelController : MonoBehaviour
 	public int LifesCounter = 3;
 
 	private Vector3 _startingPosition;
-
+	private Quaternion _startingRotation;
+	
 	void Awake()
 	{
 		Current = this;
@@ -20,6 +21,11 @@ public class LevelController : MonoBehaviour
 
 	public void SetStartPosition(Vector3 pos) {
 		_startingPosition = pos;
+	}
+
+	public void SetStartRotation(Quaternion rotation)
+	{
+		_startingRotation = rotation;
 	}
 	
 	public void OnRabbitDeath(RabbitBehaviorScript rabbit)
@@ -34,5 +40,6 @@ public class LevelController : MonoBehaviour
 		}
 
 		rabbit.transform.position = _startingPosition;
+		rabbit.transform.rotation = _startingRotation;
 	}
 }
