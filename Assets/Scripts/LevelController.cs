@@ -1,30 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
 
 	public static LevelController Current;
 	public int LifesCounter = 3;
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+	private Vector3 _startingPosition;
 
 	void Awake()
 	{
 		Current = this;
 	}
 
-	int GetLifesCounter()
+	public int GetLifesCounter()
 	{
 		return LifesCounter;
+	}
+
+	public void SetStartPosition(Vector3 pos) {
+		_startingPosition = pos;
+	}
+	
+	public void OnRabbitDeath(RabbitBehaviorScript rabbit)
+	{
+		if (LifesCounter > 0)
+		{
+			LifesCounter--;
+		}
+		else
+		{
+			// Game Over
+		}
+
+		rabbit.transform.position = _startingPosition;
 	}
 }

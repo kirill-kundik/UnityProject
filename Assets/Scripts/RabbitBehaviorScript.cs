@@ -13,6 +13,8 @@ public class RabbitBehaviorScript : MonoBehaviour
     {
         _bunny = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        
+        LevelController.Current.SetStartPosition(transform.position);
     }
 
     void FixedUpdate()
