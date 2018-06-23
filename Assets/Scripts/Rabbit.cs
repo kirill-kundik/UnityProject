@@ -135,6 +135,20 @@ public class Rabbit : MonoBehaviour
         transform.localScale = _defaultScale * 2;
     }
 
+    public void GotDamaged()
+    {
+        if (Dead || InvulnerableTimeLeft > 0)
+            return;
+        if (Buffed)
+        {
+            Debuff();
+            return;
+        }
+
+        LevelController.Current.OnRabbitDeath(this);
+    }
+
+
     public void Debuff()
     {
         Buffed = false;

@@ -7,9 +7,9 @@ namespace Enemies
         public float Speed = 3;
         public Vector3 PointBOffset;
 
-        protected Mode OrkMode = Mode.GoToA;
+        protected Mode OrcMode = Mode.GoToA;
         protected Rigidbody2D Body;
-        protected Animator OrkAnimator;
+        protected Animator OrcAnimator;
 
         private Vector3 _pointA;
         private Vector3 _pointB;
@@ -19,9 +19,9 @@ namespace Enemies
         {
             get
             {
-                if (OrkMode == Mode.GoToRabbit)
+                if (OrcMode == Mode.GoToRabbit || OrcMode == Mode.Attack)
                     return transform.position.x - Rabbit.LastRabbit.transform.position.x > 0.0f ? -1 : 1;
-                return transform.position.x - (OrkMode == Mode.GoToA ? _pointA : _pointB).x > 0.0f ? -1 : 1;
+                return transform.position.x - (OrcMode == Mode.GoToA ? _pointA : _pointB).x > 0.0f ? -1 : 1;
             }
         }
 
@@ -31,7 +31,7 @@ namespace Enemies
             GoToA,
             GoToB,
             GoToRabbit,
-            Atak,
+            Attack,
             Dead
         }
 
@@ -41,7 +41,7 @@ namespace Enemies
             _pointA = transform.position;
             _pointB = transform.position + PointBOffset;
             Body = GetComponent<Rigidbody2D>();
-            OrkAnimator = GetComponent<Animator>();
+            OrcAnimator = GetComponent<Animator>();
         }
 
         // Update is called once per frame
@@ -54,32 +54,32 @@ namespace Enemies
 
         private void UpdateMode()
         {
-            if (OrkMode == Mode.Atak || OrkMode == Mode.Dead)
+            if (OrcMode == Mode.Attack || OrcMode == Mode.Dead)
                 return;
 
             if (RabbitEntered())
             {
-                OrkMode = Mode.GoToRabbit;
+                OrcMode = Mode.GoToRabbit;
                 OnRabbitEntered();
             }
-            else if (OrkMode == Mode.GoToRabbit)
+            else if (OrcMode == Mode.GoToRabbit)
             {
-                OrkMode = Mode.GoToA;
+                OrcMode = Mode.GoToA;
             }
 
-            if (OrkMode == Mode.GoToA)
+            if (OrcMode == Mode.GoToA)
             {
                 if (IsArrived(_pointA))
                 {
-                    OrkMode = Mode.GoToB;
+                    OrcMode = Mode.GoToB;
                 }
             }
 
-            if (OrkMode == Mode.GoToB)
+            if (OrcMode == Mode.GoToB)
             {
                 if (IsArrived(_pointB))
                 {
-                    OrkMode = Mode.GoToA;
+                    OrcMode = Mode.GoToA;
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace Enemies
 
         private void Move()
         {
-            if (OrkMode == Mode.Atak || OrkMode == Mode.Dead) return;
+            if (OrcMode == Mode.Attack || OrcMode == Mode.Dead) return;
             var render = GetComponent<SpriteRenderer>();
             render.flipX = Direction > 0;
 
@@ -99,7 +99,7 @@ namespace Enemies
             vel.x = Direction * Speed;
             Body.velocity = vel;
 
-            OrkAnimator.SetBool("run", true);
+            OrcAnimator.SetBool("run", true);
         }
 
         private bool RabbitEntered()
@@ -118,27 +118,27 @@ namespace Enemies
             var rabbit = other.transform.GetComponent<Rabbit>();
             if (rabbit)
             {
-                if (OrkMode == Mode.Dead) return;
-                var orkCol = GetComponent<BoxCollider2D>();
-                if (rabbit.transform.position.y > transform.position.y + orkCol.size.y / 2 + orkCol.offset.y - 0.2f)
+                if (OrcMode == Mode.Dead) return;
+                var orcCol = GetComponent<BoxCollider2D>();
+                if (rabbit.transform.position.y > transform.position.y + orcCol.size.y / 2 + orcCol.offset.y - 0.2f)
                 {
-                    OrkDeath();
+                    OrcDeath();
                     rabbit.SmallJump();
                     return;
                 }
 
-                if (OrkMode == Mode.Atak)
+                if (OrcMode == Mode.Attack)
                     return;
-                OrkAnimator.SetTrigger("attack_hit");
-                LevelController.Current.OnRabbitDeath(rabbit);
-                OrkMode = Mode.Atak;
+                OrcAnimator.SetTrigger("attack_hit");
+                rabbit.GotDamaged();
+                OrcMode = Mode.Attack;
             }
         }
 
-        private void OrkDeath()
+        private void OrcDeath()
         {
-            OrkMode = Mode.Dead;
-            OrkAnimator.SetTrigger("die");
+            OrcMode = Mode.Dead;
+            OrcAnimator.SetTrigger("die");
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -148,7 +148,7 @@ namespace Enemies
 
         public void OnAttackAnimationEnd()
         {
-            OrkMode = Mode.GoToA;
+            OrcMode = Mode.GoToA;
         }
 
         public void OnDeathAnimationEnd()
