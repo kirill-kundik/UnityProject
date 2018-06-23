@@ -4,7 +4,7 @@ public class DeathHere : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		RabbitBehaviorScript rabbit = other.GetComponent<RabbitBehaviorScript>();
+		Rabbit rabbit = other.GetComponent<Rabbit>();
 
 		if (rabbit != null)
 		{

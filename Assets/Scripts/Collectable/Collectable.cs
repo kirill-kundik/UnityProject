@@ -6,12 +6,12 @@ namespace Collectable
 	
 		private bool _hideAnimation;
 	
-		protected virtual void OnRabitHit(RabbitBehaviorScript rabbit) {
+		protected virtual void OnRabitHit(Rabbit rabbit) {
 		}
 	
 		void OnTriggerEnter2D(Collider2D other) {
 			if(!_hideAnimation) {
-				RabbitBehaviorScript rabit = other.GetComponent<RabbitBehaviorScript>();
+				Rabbit rabit = other.GetComponent<Rabbit>();
 				if(rabit != null) {
 					OnRabitHit (rabit);
 				}

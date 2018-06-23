@@ -32,7 +32,7 @@ public class LevelController : MonoBehaviour
 		_startingRotation = rotation;
 	}
 	
-	public void OnRabbitDeath(RabbitBehaviorScript rabbit)
+	public void OnRabbitDeath(Rabbit rabbit)
 	{
 		if (LifesCounter > 0)
 		{
