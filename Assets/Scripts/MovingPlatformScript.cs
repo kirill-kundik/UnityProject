@@ -51,4 +51,20 @@ public class MovingPlatformScript : MonoBehaviour
 		target.z = 0;
 		return Vector3.Distance(pos, target) < 0.02f;
 	}
+	
+	private void OnCollisionEnter2D(Collision2D other)
+	{
+		if (other.transform.CompareTag("Player"))
+		{
+			other.transform.parent = transform;
+		}
+	}
+
+	private void OnCollisionExit2D(Collision2D other)
+	{
+		if (other.transform.CompareTag("Player"))
+		{
+			other.transform.parent = null;
+		}
+	}
 }
