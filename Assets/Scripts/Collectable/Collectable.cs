@@ -2,10 +2,13 @@
 
 namespace Collectable
 {
-	public class Collectable : MonoBehaviour {
-	
+	public class Collectable : MonoBehaviour
+	{
+
+		public AudioClip AudioClip;
+		
 		private bool _hideAnimation;
-	
+		
 		protected virtual void OnRabitHit(Rabbit rabbit) {
 		}
 	
@@ -18,6 +21,7 @@ namespace Collectable
 			}
 		}
 		public void CollectedHide() {
+			SoundManager.Instance.PlaySound(AudioClip);
 			_hideAnimation = true;
 			Destroy(gameObject);
 		}

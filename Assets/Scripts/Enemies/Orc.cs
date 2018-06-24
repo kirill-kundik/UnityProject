@@ -127,7 +127,7 @@ namespace Enemies
             {
                 if (OrcMode == Mode.Dead) return;
                 var orcCol = GetComponent<BoxCollider2D>();
-                if (rabbit.transform.position.y > transform.position.y + orcCol.size.y / 2 + orcCol.offset.y - 0.2f)
+                if (rabbit.transform.position.y > transform.position.y + orcCol.size.y / 2 + orcCol.offset.y - 0.4f)
                 {
                     OrcDeath();
                     rabbit.SmallJump();

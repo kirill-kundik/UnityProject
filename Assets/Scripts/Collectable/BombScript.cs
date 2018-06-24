@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BombScript : MonoBehaviour {
+namespace Collectable
+{
+	public class BombScript : Collectable
+	{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		protected override void OnRabitHit (Rabbit rabit)
+		{
+			LevelController.Current.OnRabbitDeath(rabit);
+			CollectedHide ();
+		}
 	}
 }

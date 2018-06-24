@@ -5,7 +5,7 @@
 		private static int _freeId;
 		public int Id { get; private set; }
 
-		private void Start()
+		private void Awake()
 		{
 			Id = _freeId++;
 		}
