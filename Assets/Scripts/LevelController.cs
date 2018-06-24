@@ -53,19 +53,36 @@ public class LevelController : MonoBehaviour
             _levelStat = new LevelStat ();
         }
 
-        FruitScript[] fruits = FindObjectsOfType<FruitScript>();
-        Array.ForEach(fruits, fruit => {
-            if(_levelStat.CollectedFruits.Contains(fruit.Id))
-                fruit.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-        });
-        
-        _maxFruits = fruits.Length;
+        _maxFruits = FindObjectsOfType<FruitScript>().Length;
         
         
         UiController.SetCoins(PlayerPrefs.GetInt("coins", 0));
         UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
+        
+        DisplayFruits();
+    }
+    
+    private void DisplayFruits()
+    {
+        var freeId = 0;
+        var fruits = FindObjectsOfType<FruitScript>();
+        Array.ForEach(fruits, fruit => fruit.Id = freeId++);
+        var updatedIDs = new List<int>();
+        foreach (var id in _levelStat.CollectedFruits)
+        {
+            var item = Array.Find(fruits, fruit => fruit.Id == id);
+            if (item == null) continue;
+            updatedIDs.Add(item.Id);
+            item.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+        }
+
+        _levelStat.CollectedFruits = updatedIDs;
+
+        _maxFruits = fruits.Length;
+        UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
     }
 
+    
     public int GetLifesCounter()
     {
         return LifesCounter;
@@ -135,14 +152,14 @@ public class LevelController : MonoBehaviour
 
     public void AddFruits(int id)
     {
-       if( _levelStat.CollectedFruits.IndexOf(id) >= 0)
+       if( _levelStat.CollectedFruits.Contains(id))
             return;
         _levelStat.CollectedFruits.Add(id);    
         if (_levelStat.CollectedFruits.Count >= _maxFruits)
             _levelStat.HasAllFruits = true;
         UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
     }
-
+    
     public void AddLifes(int count)
     {
         LifesCounter += count;

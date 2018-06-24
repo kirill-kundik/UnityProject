@@ -2,14 +2,9 @@
 {
 	public class FruitScript : Collectable
 	{
-		private static int _freeId;
-		public int Id { get; private set; }
-
-		private void Awake()
-		{
-			Id = _freeId++;
-		}
-
+		
+		public int Id { get; set; }
+		
 		protected override void OnRabitHit (Rabbit rabit)
 		{
 			LevelController.Current.AddFruits (Id);
