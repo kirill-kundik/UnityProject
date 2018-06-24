@@ -13,6 +13,7 @@ namespace UI
         public Sprite CrystalBlue;
         public Sprite CrystalGreen;
         public Sprite CrystalRed;
+        public Sprite CrystalEmpty;
 
         private Dictionary<CrystalScript.CrystalType, Sprite> Crystals =
             new Dictionary<CrystalScript.CrystalType, Sprite>();

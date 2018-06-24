@@ -4,6 +4,7 @@ using Collectable;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
@@ -14,11 +15,15 @@ public class LevelController : MonoBehaviour
     private int _maxFruits = 11;
 
     public UiInGameController UiController;
+    public Animator LoseGameWindow;
+    public Animator WinGameWindow;
 
     private List<CrystalScript.CrystalType> _collectedCrystals = new List<CrystalScript.CrystalType>();
 
     private bool _pause;
 
+    private int _coinsCollected;
+    
     public bool Pause
     {
         get { return _pause; }
@@ -31,6 +36,12 @@ public class LevelController : MonoBehaviour
 
     void Awake()
     {
+        if (Current != null && Current != this)
+        {
+            Destroy(this);
+            return;
+        }
+
         Current = this;
     }
 
@@ -62,7 +73,7 @@ public class LevelController : MonoBehaviour
 
     public void OnRabbitDeath(Rabbit rabbit)
     {
-        if (LifesCounter > 0)
+        if (LifesCounter > 1)
         {
             LifesCounter--;
             rabbit.Death();
@@ -70,11 +81,43 @@ public class LevelController : MonoBehaviour
         }
         else
         {
+            SetUpCollectedDiamonds(LoseGameWindow.transform.Find("Panel"));
+            LoseGameWindow.SetTrigger("open");
+            Pause = true;
         }
     }
 
+    public void OnLevelCompleted()
+    {
+        _levelStat.LevelPassed = true;
+        Save();
+
+        var panel = WinGameWindow.transform.Find("Panel");
+        panel.Find("TextFruits").GetComponent<Text>().text = _levelStat.CollectedFruits.Count + "/" + _maxFruits;
+        panel.Find("TextCoins").GetComponent<Text>().text = "+" + _coinsCollected;
+        SetUpCollectedDiamonds(panel);
+
+        WinGameWindow.SetTrigger("open");
+        Pause = true;
+    }
+    
+    private void SetUpCollectedDiamonds(Transform windowPanel)
+    {
+        windowPanel.Find("CrystalBlue").GetComponent<Image>().sprite = _collectedCrystals.Contains(CrystalScript.CrystalType.Blue)
+            ? UiController.CrystalBlue
+            : UiController.CrystalEmpty;
+        windowPanel.Find("CrystalGreen").GetComponent<Image>().sprite =
+            _collectedCrystals.Contains(CrystalScript.CrystalType.Green)
+                ? UiController.CrystalGreen
+                : UiController.CrystalEmpty;
+        windowPanel.Find("CrystalRed").GetComponent<Image>().sprite = _collectedCrystals.Contains(CrystalScript.CrystalType.Red)
+            ? UiController.CrystalRed
+            : UiController.CrystalEmpty;
+    }
+    
     public void AddCoins(int count)
     {
+        _coinsCollected += count;
         PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + count);
         PlayerPrefs.Save();
         UiController.SetCoins(PlayerPrefs.GetInt("coins"));
@@ -94,7 +137,7 @@ public class LevelController : MonoBehaviour
     {
        if( _levelStat.CollectedFruits.IndexOf(id) >= 0)
             return;
-        _levelStat.CollectedFruits.Add(id);
+        _levelStat.CollectedFruits.Add(id);    
         if (_levelStat.CollectedFruits.Count >= _maxFruits)
             _levelStat.HasAllFruits = true;
         UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
@@ -109,5 +152,22 @@ public class LevelController : MonoBehaviour
     {
         string str = JsonUtility.ToJson(_levelStat);
         PlayerPrefs.SetString (SceneManager.GetActiveScene().name, str);
+    }
+    
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Resume();
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("LevelChooser");
+        Resume();
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
     }
 }
