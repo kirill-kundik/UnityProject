@@ -9,85 +9,82 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1963692685333220}
+  m_RootGameObject: {fileID: 1997861474821036}
   m_IsPrefabParent: 1
---- !u!1 &1963692685333220
+--- !u!1 &1997861474821036
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4712238227892788}
-  - component: {fileID: 212001371696806508}
-  - component: {fileID: 61597315462827920}
-  - component: {fileID: 114219884062661676}
+  - component: {fileID: 4875011872921234}
+  - component: {fileID: 212384765067438106}
+  - component: {fileID: 61389618920213056}
+  - component: {fileID: 114808576197163366}
   m_Layer: 0
-  m_Name: Carrot
+  m_Name: mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4712238227892788
+--- !u!4 &4875011872921234
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1963692685333220}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.5919, y: -0.49498484, z: 0}
+  m_GameObject: {fileID: 1997861474821036}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.793699, y: -0.89455694, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61597315462827920
+--- !u!61 &61389618920213056
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1963692685333220}
+  m_GameObject: {fileID: 1997861474821036}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2550426, y: 0.032779396}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.36689812, y: 0.4685486}
-    oldSize: {x: 1.5, y: 0.69}
-    newSize: {x: 1.5, y: 0.69}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.74666667, y: 0.70666665}
+    newSize: {x: 0.74666667, y: 0.70666665}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3892204, y: 0.35766256}
+  m_Size: {x: 0.74666667, y: 0.70666665}
   m_EdgeRadius: 0
---- !u!114 &114219884062661676
+--- !u!114 &114808576197163366
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1963692685333220}
+  m_GameObject: {fileID: 1997861474821036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecbcde5a9940995438a271cfa4bd8e2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 359e6e044a148ca4a99f887cbdce404a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioClip: {fileID: 8300000, guid: ece9b14a232f14f48ab9a5e844cb5daf, type: 3}
-  Velocity: 0
-  Direction: 0
-  Lifetime: 0
---- !u!212 &212001371696806508
+  AudioClip: {fileID: 8300000, guid: 7e71b9428c0c54a65ad2831f0a140120, type: 3}
+--- !u!212 &212384765067438106
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1963692685333220}
+  m_GameObject: {fileID: 1997861474821036}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -114,12 +111,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 984a03c1713bf42ce8914e259715a66b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 489c5941e41184fe6b482001164f4cef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5, y: 0.69}
+  m_Size: {x: 0.74666667, y: 0.70666665}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

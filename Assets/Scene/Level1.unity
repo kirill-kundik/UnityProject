@@ -1567,17 +1567,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114384528607704238, guid: 6d01527e76a804848a4e73aae94c5a83,
-        type: 2}
-      propertyPath: Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 212428731925284712, guid: 6d01527e76a804848a4e73aae94c5a83,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 221616416f4de4d46a64a5cafee0457b,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d01527e76a804848a4e73aae94c5a83, type: 2}
   m_IsPrefabParent: 0
@@ -2022,6 +2011,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: d9d493e55362f42a5af572693b8c8bf1,
         type: 3}
+    - target: {fileID: 61195175197678264, guid: d658ba9f9d8c65a4abf56f449fe5cf53,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.72
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d658ba9f9d8c65a4abf56f449fe5cf53, type: 2}
   m_IsPrefabParent: 0
@@ -2802,6 +2796,17 @@ Prefab:
       propertyPath: m_Name
       value: crystal (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114384528607704238, guid: 6d01527e76a804848a4e73aae94c5a83,
+        type: 2}
+      propertyPath: Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212428731925284712, guid: 6d01527e76a804848a4e73aae94c5a83,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bf7ec3f94b9194a8abdaa2bb13ab141d,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d01527e76a804848a4e73aae94c5a83, type: 2}
   m_IsPrefabParent: 0
@@ -3498,6 +3503,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: a89ec4dd263c14050ab5dd36caadfe97,
         type: 3}
+    - target: {fileID: 61195175197678264, guid: d658ba9f9d8c65a4abf56f449fe5cf53,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.96
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d658ba9f9d8c65a4abf56f449fe5cf53, type: 2}
   m_IsPrefabParent: 0

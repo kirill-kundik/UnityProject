@@ -4,6 +4,7 @@
 	
         protected override void OnRabitHit (Rabbit rabit)
         {
+            rabit.AcceptBuff();
             CollectedHide ();
         }
 	
