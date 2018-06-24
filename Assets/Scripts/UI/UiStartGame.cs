@@ -7,7 +7,7 @@ namespace UI
 
 		public void LoadScene()
 		{
-			SceneManager.LoadScene("Level1");
+			SceneManager.LoadScene("LevelChooser");
 		}
 	}
 }
