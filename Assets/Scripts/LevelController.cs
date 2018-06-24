@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Collectable;
 using UI;
 using UnityEngine;
@@ -40,7 +41,16 @@ public class LevelController : MonoBehaviour
         if(_levelStat == null) {
             _levelStat = new LevelStat ();
         }
-        _maxFruits = FindObjectsOfType<FruitScript>().Length;
+
+        FruitScript[] fruits = FindObjectsOfType<FruitScript>();
+        Array.ForEach(fruits, fruit => {
+            if(_levelStat.CollectedFruits.Contains(fruit.Id))
+                fruit.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+        });
+        
+        _maxFruits = fruits.Length;
+        
+        
         UiController.SetCoins(PlayerPrefs.GetInt("coins", 0));
         UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
     }

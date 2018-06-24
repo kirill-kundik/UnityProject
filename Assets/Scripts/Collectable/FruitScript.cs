@@ -3,16 +3,16 @@
 	public class FruitScript : Collectable
 	{
 		private static int _freeId;
-		private int _id;
+		public int Id { get; private set; }
 
 		private void Start()
 		{
-			_id = _freeId++;
+			Id = _freeId++;
 		}
 
 		protected override void OnRabitHit (Rabbit rabit)
 		{
-			LevelController.Current.AddFruits (_id);
+			LevelController.Current.AddFruits (Id);
 			CollectedHide ();
 		}
 	

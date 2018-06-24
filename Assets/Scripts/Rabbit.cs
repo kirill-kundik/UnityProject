@@ -120,7 +120,7 @@ public class Rabbit : MonoBehaviour
     {
         var animator = GetComponent<Animator>();
         Dead = true;
-        Debug.Log("Here");
+        _bunny.velocity = Vector2.zero;
         animator.SetTrigger("death");
         InvulnerableTimeLeft = 0;
     }

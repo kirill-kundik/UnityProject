@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224878592978353754}
   - component: {fileID: 222285983943249172}
   - component: {fileID: 114656981390759626}
+  - component: {fileID: 114329202708375308}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -215,7 +216,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114920817048906670}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114329202708375308}
+        m_MethodName: ClickMusicButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114252897155938160
@@ -232,6 +244,21 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &114329202708375308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112226205340570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2700a38c39e1619409c50d58f5b8c309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundClicked: {fileID: 21300000, guid: a96b3c306d8f54d59992608610fa8420, type: 3}
+  SoundNotClicked: {fileID: 21300000, guid: 9d51c550af7f042448b0d69bc8f39958, type: 3}
+  MusicClicked: {fileID: 21300000, guid: 05d63ac62d0544d53a2005d0ceb838ea, type: 3}
+  MusicNotClicked: {fileID: 21300000, guid: f0cf33b7ce34e41798c3899a84839cbd, type: 3}
 --- !u!114 &114335592893096360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,7 +474,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114038838802836362}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114329202708375308}
+        m_MethodName: ClickSoundButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114920817048906670
