@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Rabbit : MonoBehaviour
 {
     public static Rabbit LastRabbit;
 
+    public AudioClip WalkingSound;
+    public AudioClip DeathSound;
+    public AudioClip LandingSound;
+    
     public float Speed = 1.0f;
     public float MaxJumpTime = 1f;
     public float JumpSpeed = 3f;
@@ -18,7 +23,11 @@ public class Rabbit : MonoBehaviour
     private Vector3 _startingPosition;
     private Vector3 _defaultScale;
     private Animator _animator;
-
+    
+    private AudioSource _landSoundSource;
+    private AudioSource _runSoundSource;
+    private AudioSource _deathSoundSource;
+    
     private Rabbit()
     {
     }
@@ -31,10 +40,28 @@ public class Rabbit : MonoBehaviour
         _defaultScale = transform.localScale;
         _animator = GetComponent<Animator>();
         LastRabbit = this;
+        
+        _landSoundSource = gameObject.AddComponent<AudioSource>();
+        _runSoundSource = gameObject.AddComponent<AudioSource>();
+        _deathSoundSource = gameObject.AddComponent<AudioSource>();
+        _runSoundSource.clip = WalkingSound;
+        _landSoundSource.clip = LandingSound;
+        _deathSoundSource.clip = DeathSound;
     }
 
     private void Update()
     {
+        
+        if (SoundManager.Instance.SoundOn && Time.timeScale > 0 && Math.Abs(_bunny.velocity.x) > 0.1f && _isGrounded)
+        {
+            if (!_runSoundSource.isPlaying)
+                _runSoundSource.Play();
+        }
+        else
+        {
+            _runSoundSource.Pause();
+        }
+        
         if (InvulnerableTimeLeft > 0)
         {
             InvulnerableTimeLeft -= Time.deltaTime;
@@ -76,6 +103,9 @@ public class Rabbit : MonoBehaviour
                 _jumpTime = 0;
             }
         }
+        
+        if (SoundManager.Instance.SoundOn && _isGrounded && !_landSoundSource.isPlaying)
+            _landSoundSource.Play();
     }
 
     private void ControlTakeOffAndLanding()
@@ -122,6 +152,7 @@ public class Rabbit : MonoBehaviour
         Dead = true;
         _bunny.velocity = Vector2.zero;
         animator.SetTrigger("death");
+        _deathSoundSource.Play();
         InvulnerableTimeLeft = 0;
     }
 

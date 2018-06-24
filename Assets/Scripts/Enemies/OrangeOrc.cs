@@ -37,6 +37,8 @@ namespace Enemies
 			var carrot = Instantiate(PrefabCarrot).GetComponent<Carrot>();
 			carrot.transform.position = transform.position + Vector3.up * 0.6f;
 			carrot.Init(CarrotVelocity, Direction, CarrotLifetime);
+			
+			SoundManager.Instance.PlaySound(AudioAttack, SoundSource);
 		}
 	}
 }

@@ -7,14 +7,18 @@ namespace Enemies
         public float Speed = 3;
         public Vector3 PointBOffset;
 
+        public AudioClip AudioAttack;
+        public AudioClip AudioDie;
+        
         protected Mode OrcMode = Mode.GoToA;
         protected Rigidbody2D Body;
         protected Animator OrcAnimator;
 
         private Vector3 _pointA;
         private Vector3 _pointB;
-
-
+        
+        protected AudioSource SoundSource;
+        
         protected float Direction
         {
             get
@@ -42,6 +46,9 @@ namespace Enemies
             _pointB = transform.position + PointBOffset;
             Body = GetComponent<Rigidbody2D>();
             OrcAnimator = GetComponent<Animator>();
+            
+            SoundSource = gameObject.AddComponent<AudioSource>();
+            SoundSource.clip = AudioAttack;
         }
 
         // Update is called once per frame
@@ -130,6 +137,8 @@ namespace Enemies
                 if (OrcMode == Mode.Attack)
                     return;
                 OrcAnimator.SetTrigger("attack_hit");
+                
+                SoundManager.Instance.PlaySound(AudioAttack, SoundSource);
                 rabbit.GotDamaged();
                 OrcMode = Mode.Attack;
             }
@@ -139,6 +148,9 @@ namespace Enemies
         {
             OrcMode = Mode.Dead;
             OrcAnimator.SetTrigger("die");
+            
+            SoundSource = gameObject.AddComponent<AudioSource>();
+            SoundSource.clip = AudioAttack;
         }
 
         private void OnCollisionStay2D(Collision2D other)
