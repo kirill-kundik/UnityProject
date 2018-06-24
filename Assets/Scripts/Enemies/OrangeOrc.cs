@@ -18,7 +18,6 @@ namespace Enemies
 			OrcAnimator.SetTrigger("attack_throw");
 			Body.velocity = Vector2.zero;
 			OrcMode = Mode.Attack;
-			Debug.Log(Direction);
 
 			LaunchCarrot();
 		}

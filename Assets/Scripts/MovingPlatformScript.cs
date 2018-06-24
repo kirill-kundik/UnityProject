@@ -21,7 +21,7 @@ public class MovingPlatformScript : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Vector3 myPos = transform.position;
 		Vector3 target = _isGoingToA ? _pointA : _pointB;
 

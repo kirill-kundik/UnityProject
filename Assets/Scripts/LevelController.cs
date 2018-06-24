@@ -1,74 +1,77 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Collectable;
+using UI;
+using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
+    public static LevelController Current;
+    public int LifesCounter = 3;
+    public int CoinCounter = 0;
+    public int FruitCounter = 0;
 
-	public static LevelController Current;
-	public int LifesCounter = 3;
-	public int CoinCounter = 0;
-	public int CrystalCounter = 0;
-	public int MushroomCounter = 0;
-	public int FruitCounter = 0;
+    public UiInGameController UiController;
 
-	private Vector3 _startingPosition;
-	private Quaternion _startingRotation;
-	
-	void Awake()
-	{
-		Current = this;
-	}
+    private List<CrystalScript.CrystalType> _collectedCrystals = new List<CrystalScript.CrystalType>();
 
-	public int GetLifesCounter()
-	{
-		return LifesCounter;
-	}
+    private bool _pause;
 
-	public void SetStartPosition(Vector3 pos) {
-		_startingPosition = pos;
-	}
+    public bool Pause
+    {
+        get { return _pause; }
+        set
+        {
+            _pause = value;
+            Time.timeScale = _pause ? 0 : 1;
+        }
+    }
 
-	public void SetStartRotation(Quaternion rotation)
-	{
-		_startingRotation = rotation;
-	}
-	
-	public void OnRabbitDeath(Rabbit rabbit)
-	{
-		if (LifesCounter > 0)
-		{
-			LifesCounter--;
-		}
-		else
-		{
-			// Game Over
-		}
+    void Awake()
+    {
+        Current = this;
+    }
 
-		rabbit.transform.position = _startingPosition;
-		rabbit.transform.rotation = _startingRotation;
-	}
+    public int GetLifesCounter()
+    {
+        return LifesCounter;
+    }
 
-	public void AddCoins(int count)
-	{
-		CoinCounter += count;
-	}
+    public void OnRabbitDeath(Rabbit rabbit)
+    {
+        if (LifesCounter > 0)
+        {
+            LifesCounter--;
+            rabbit.Death();
+            UiController.SetLifes(LifesCounter);
+        }
+        else
+        {
+        }
+    }
 
-	public void AddCrystal(int count)
-	{
-		CrystalCounter += count;
-	}
+    public void AddCoins(int count)
+    {
+        CoinCounter += count;
+        UiController.SetCoins(CoinCounter);
+    }
 
-	public void AddMushrooms(int count)
-	{
-		MushroomCounter += count;
-	}
+    public void AddCrystal(CrystalScript.CrystalType type)
+    {
+        if (_collectedCrystals.IndexOf(type) >= 0)
+            return;
+        _collectedCrystals.Add(type);
+        UiController.SetCrystal(type);
+        
+    }
 
-	public void AddFruits(int count)
-	{
-		FruitCounter += count;
-	}
+    public void AddFruits(int count)
+    {
+        FruitCounter += count;
+        UiController.SetFruits(FruitCounter);
+    }
 
-	public void AddLifes(int count)
-	{
-		LifesCounter += count;
-	}
+    public void AddLifes(int count)
+    {
+        LifesCounter += count;
+    }
 }

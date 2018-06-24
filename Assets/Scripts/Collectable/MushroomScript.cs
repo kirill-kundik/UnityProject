@@ -4,7 +4,6 @@
 	
         protected override void OnRabitHit (Rabbit rabit)
         {
-            LevelController.Current.AddMushrooms (1);
             CollectedHide ();
         }
 	
