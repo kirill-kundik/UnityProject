@@ -163,6 +163,7 @@ public class LevelController : MonoBehaviour
     public void AddLifes(int count)
     {
         LifesCounter += count;
+        UiController.SetLifes(LifesCounter);
     }
 
     public void Save()

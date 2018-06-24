@@ -7,7 +7,7 @@ namespace Collectable
 
 		protected override void OnRabitHit (Rabbit rabit)
 		{
-			LevelController.Current.OnRabbitDeath(rabit);
+			rabit.GotDamaged();
 			CollectedHide ();
 		}
 	}
