@@ -20,15 +20,11 @@ namespace UI
         private Text _coins;
         private Text _fruits;
 
-        private int _maxFruits = 11;
 
         private void Start()
         {
-            _maxFruits = GameObject.FindObjectsOfType<FruitScript>().Length;
             _coins = transform.Find("Coins").Find("Text").GetComponent<Text>();
-            _coins.text = "0";
             _fruits = transform.Find("Fruits").Find("Text").GetComponent<Text>();
-            _fruits.text = "0/" + _maxFruits;
 
             SetLifes(3);
 
@@ -42,9 +38,9 @@ namespace UI
             _coins.text = "" + coins;
         }
 
-        public void SetFruits(int fruits)
+        public void SetFruits(int fruits, int maxFruits)
         {
-            _fruits.text = fruits + "/" + _maxFruits;
+            _fruits.text = fruits + "/" + maxFruits;
         }
 
         public void SetLifes(int life)

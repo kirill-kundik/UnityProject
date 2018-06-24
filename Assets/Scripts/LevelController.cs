@@ -2,13 +2,15 @@
 using Collectable;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
     public static LevelController Current;
+
     public int LifesCounter = 3;
-    public int CoinCounter = 0;
-    public int FruitCounter = 0;
+    private LevelStat _levelStat;
+    private int _maxFruits = 11;
 
     public UiInGameController UiController;
 
@@ -31,6 +33,18 @@ public class LevelController : MonoBehaviour
         Current = this;
     }
 
+    private void Start()
+    {
+        string str = PlayerPrefs.GetString (SceneManager.GetActiveScene().name, null);
+        _levelStat = JsonUtility.FromJson<LevelStat> (str);
+        if(_levelStat == null) {
+            _levelStat = new LevelStat ();
+        }
+        _maxFruits = FindObjectsOfType<FruitScript>().Length;
+        UiController.SetCoins(PlayerPrefs.GetInt("coins", 0));
+        UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
+    }
+
     public int GetLifesCounter()
     {
         return LifesCounter;
@@ -51,8 +65,9 @@ public class LevelController : MonoBehaviour
 
     public void AddCoins(int count)
     {
-        CoinCounter += count;
-        UiController.SetCoins(CoinCounter);
+        PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + count);
+        PlayerPrefs.Save();
+        UiController.SetCoins(PlayerPrefs.GetInt("coins"));
     }
 
     public void AddCrystal(CrystalScript.CrystalType type)
@@ -61,17 +76,28 @@ public class LevelController : MonoBehaviour
             return;
         _collectedCrystals.Add(type);
         UiController.SetCrystal(type);
-        
+        if (_collectedCrystals.Count >= 3)
+            _levelStat.HasCrystals = true;
     }
 
-    public void AddFruits(int count)
+    public void AddFruits(int id)
     {
-        FruitCounter += count;
-        UiController.SetFruits(FruitCounter);
+       if( _levelStat.CollectedFruits.IndexOf(id) >= 0)
+            return;
+        _levelStat.CollectedFruits.Add(id);
+        if (_levelStat.CollectedFruits.Count >= _maxFruits)
+            _levelStat.HasAllFruits = true;
+        UiController.SetFruits(_levelStat.CollectedFruits.Count, _maxFruits);
     }
 
     public void AddLifes(int count)
     {
         LifesCounter += count;
+    }
+
+    public void Save()
+    {
+        string str = JsonUtility.ToJson(_levelStat);
+        PlayerPrefs.SetString (SceneManager.GetActiveScene().name, str);
     }
 }
